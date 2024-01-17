@@ -1,0 +1,80 @@
+
+<section>
+  <h1 class="text-xl">
+    Iteraccion
+  </h1>
+  <hr>
+  @defer(on interaction) {
+    <app-fast cssClass="bg-orange-300 h-30">
+      <span>On Interaction</span>
+    </app-fast>
+  } @placeholder {
+    <div class="w-full h-30 bg-red-300">
+      click we! click
+    </div>
+  }
+</section>
+
+<section>
+  <h1 class="text-xl">
+    Iteraccion button
+  </h1>
+  <hr>
+  <button #btnInteraction
+  class="bg-red-200 p-2 hover:bg-red-400 rounded-full text-white">
+  On Interaction
+</button>
+  @defer(on interaction(btnInteraction)) {
+    <app-fast cssClass="bg-orange-300 h-30">
+      <span>On interaction button</span>
+    </app-fast>
+  }
+</section>
+
+<section>
+  <h1 class="text-xl">
+    Iteraccion hover
+  </h1>
+  <hr>
+  @defer(on hover) {
+    <app-fast cssClass="bg-orange-300 h-30">
+      <span>On Interaction hover</span>
+    </app-fast>
+  } @placeholder {
+    <div class="w-full h-30 bg-red-300">
+      hover we
+    </div>
+  }
+</section>
+
+<section>
+  <h1 class="text-xl">
+    immediate
+  </h1>
+  <hr>
+  @defer(on immediate) {
+    <app-fast cssClass="bg-blue-300 h-30">
+      <span>On Interaction button</span>
+    </app-fast>
+  } @placeholder {
+    <div class="w-full h-30 bg-green-300">
+      hover we
+    </div>
+  }
+</section>
+
+<section>
+  <h1 class="text-xl">
+    immediate
+  </h1>
+  <hr>
+  @defer(on timer(1000)) {
+    <app-fast cssClass="bg-blue-300 h-30">
+      <span>On Interaction timer</span>
+    </app-fast>
+  } @placeholder {
+    <div class="w-full h-30 bg-green-300">
+      timer we
+    </div>
+  }
+</section>

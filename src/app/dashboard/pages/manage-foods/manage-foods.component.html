@@ -1,0 +1,278 @@
+<div
+class="sticky z-10 top-0 h-16 lg:py-2.5 lg:w-[100%] xl:w-[100%] 2xl:w-[100%] mb-4 bg-opacity-90 bg-blur bg-blend-luminosity backdrop-filter backdrop-blur-lg">
+  <div class="px-6 pt-2 flex items-start space-x-4 2xl:container">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12.75 3.03v.568c0 .334.148.65.405.864l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 0 1-1.161.886l-.143.048a1.107 1.107 0 0 0-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 0 1-1.652.928l-.679-.906a1.125 1.125 0 0 0-1.906.172L4.5 15.75l-.612.153M12.75 3.031a9 9 0 0 0-8.862 12.872M12.75 3.031a9 9 0 0 1 6.69 14.036m0 0-.177-.529A2.25 2.25 0 0 0 17.128 15H16.5l-.324-.324a1.453 1.453 0 0 0-2.328.377l-.036.073a1.586 1.586 0 0 1-.982.816l-.99.282c-.55.157-.894.702-.8 1.267l.073.438c.08.474.49.821.97.821.846 0 1.598.542 1.865 1.345l.215.643m5.276-3.67a9.012 9.012 0 0 1-5.276 3.67m0 0a9 9 0 0 1-10.275-4.835M15.75 9c0 .896-.393 1.7-1.016 2.25" />
+    </svg>
+    <h5 hidden class="text-xl ms-4 font-medium lg:block">Gestionar platillos</h5>
+    <button class="w-12 h-16 -mr-2 border-r lg:hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 my-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+    </button>
+  </div>
+</div>
+
+<section class="grid grid-cols-1 md:grid-cols-1">
+  <div class="bg-slate-100 shadow-lg p-10 rounded">
+    <header class="body-font">
+      <div class="container mx-auto flex flex-wrap mb-3 flex-col md:flex-row items-center">
+        <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
+          </svg>
+        <span class="ml-3 text-xl">Listado de alimentos</span>
+      </a>
+      <p class="ml-auto inline-flex items-end">
+        <button appTooltip="Agregar producto" (click)="showForm()"
+        class="inline-flex text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+          </svg>
+        </button>
+      </p>
+      </div>
+    </header>
+    <hr>
+
+    <div class="container flex justify-center mx-auto mt-5">
+        <div class="flex flex-col">
+            <div class="w-full">
+              @if ( myFoods.length > 0 ) {
+                <div class="border-b border-gray-200 shadow">
+                  <table class="divide-y divide-gray-300 ">
+                      <thead class="bg-gray-50">
+                        <tr>
+                          <th class="px-6 py-2 text-xs text-gray-500">
+                              #
+                          </th>
+                          <th class="px-6 py-2 text-xs text-gray-500">
+                              Nombre
+                          </th>
+                          <th class="px-6 py-2 text-xs text-gray-500">
+                              Descripción
+                          </th>
+                          <th class="px-6 py-2 text-xs text-gray-500">
+                              Precio
+                          </th>
+                          <th class="px-6 py-2 text-xs text-gray-500">
+                              Categoria
+                          </th>
+                          <th class="px-6 py-2 text-xs text-gray-500">
+                              Estado
+                          </th>
+                          <th class="px-6 py-2 text-xs text-gray-500">
+                              Acciones
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody class="bg-white divide-y divide-gray-300">
+                        @for (food of myFoods; track food; let i = $index) {
+                          <tr class="whitespace-nowrap">
+                            <td class="px-6 py-4 text-sm text-gray-500">
+                              {{ i + 1 }}
+                            </td>
+                            <td class="px-6 py-4">
+                              <div class="text-sm text-gray-900 text-wrap">
+                                  {{food.name}}
+                              </div>
+                            </td>
+                            <td class="px-6 py-4">
+                              <div class="text-wrap text-sm max-w-[150px] overflow-hidden whitespace-nowrap overflow-ellipsis">
+                                <p>
+                                  {{food.description.length > 10 ? food.description.slice(0, 40) + '...' : food.description}}
+                                </p>
+                              </div>
+                            </td>
+                            <td class="px-6 py-4 text-sm">
+                                {{food.price | currency}}
+                            </td>
+                            <td class="px-6 py-4">
+                              {{food.category}}
+                            </td>
+                            <td class="px-6 py-4">
+                              @switch (food.isActive) {
+                                @case (true) {
+                                  <a
+                                    class="px-4 py-1 text-sm text-green-500">
+                                    Activo
+                                  </a>
+                                }
+                                @case (false) {
+                                  <a
+                                    class="px-4 py-1 text-sm text-slate-500">
+                                    Inactivo
+                                  </a>
+                                }
+                              }
+                            </td>
+                            <td class="px-6 py-2">
+                              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 px-3">
+                                <div class="px-2">
+                                  <button appTooltip="Borrar" (click)="deleteProd(i)"
+                                  class="px-4 py-1 text-sm text-red-400 bg-red-200 rounded-full hover:shadow-xl hover:bg-red-800 hover:text-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                      <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                    </svg>
+                                  </button>
+                                </div>
+                                <div class="px-2">
+                                  @if (food.isActive) {
+                                    <button appTooltip="Desactivar" (click)="changeState(i)"
+                                    class="px-4 py-1 text-sm text-indigo-600 bg-indigo-200 rounded-full hover:shadow-xl hover:bg-indigo-900 hover:text-white">
+                                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6 9 12.75l4.286-4.286a11.948 11.948 0 0 1 4.306 6.43l.776 2.898m0 0 3.182-5.511m-3.182 5.51-5.511-3.181" />
+                                      </svg>
+                                    </button>
+                                  } @else {
+                                    <button appTooltip="Activar" (click)="changeState(i)"
+                                    class="px-4 py-1 text-sm text-indigo-600 bg-indigo-200 rounded-full hover:shadow-xl hover:bg-indigo-900 hover:text-white">
+                                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" />
+                                      </svg>
+                                    </button>
+                                  }
+                                </div>
+                                <div class="px-2">
+                                  <button appTooltip="Ver info." (click)="toggleProdModal(food)"
+                                  class="px-4 py-1 text-sm text-slate-700 bg-slate-300 rounded-full hover:shadow-xl hover:bg-slate-800 hover:text-white">
+                                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                  </svg>
+                                  </button>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        }
+                      </tbody>
+                  </table>
+                </div>
+              } @else {
+                <p class="text-lg">
+                  No hay productos agregados!
+                </p>
+              }
+            </div>
+        </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- food information modal -->
+<div class="fixed z-10 inset-0 overflow-y-auto transition duration-300 ease-in-out" *ngIf="showProdModal">
+  <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+    <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+      <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+    </div>
+    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+    <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+      <header class="text-gray-600 body-font">
+        <div class="container flex flex-wrap my-3 mx-5 flex-col md:flex-row items-center">
+          <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
+            </svg>
+            <h1 class="ml-3 text-xl">{{especificProd.name}}</h1>
+          </a>
+          <p class="ml-auto inline-flex items-end pe-10 px-6 text-dark">Precio: {{especificProd.price | currency}}</p>
+        </div>
+        <div class="container flex flex-wrap mt-3 mx-5 flex-col md:flex-row items-center">
+          <p>Categoria: {{especificProd.category}}</p>
+        </div>
+        <div class="container flex flex-wrap mx-5 flex-col md:flex-row items-center">
+          <p class="">Estado:
+            <span
+            [class]="{'text-green-700': especificProd.isActive,
+            'text-red-700': !especificProd.isActive}">
+              {{especificProd.isActive ? 'Disponible' : 'No disponible'}}
+            </span>
+          </p>
+        </div>
+      </header>
+      <!-- Contenido del modal -->
+      <div class="bg-white p-4">
+        <img class="lg:h-72 md:h-60 w-full object-cover object-center" [src]="especificProd.image" alt="blog">
+        <h2 class="my-4 text-lg">Descripcion:</h2>
+        <p class="text-justify">{{especificProd.description}}</p>
+        <button (click)="toggleProdModal()"
+        class="mt-4 px-4 py-2 bg-indigo-500 text-white rounded-md">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- add food modal -->
+<div id="crud-modal" tabindex="-1" aria-hidden="true" *ngIf="showFormModal"
+class="bg-black bg-opacity-50 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full md:inset-0 max-h-full">
+  <div class="relative p-4 w-full max-w-md max-h-full">
+    <!-- Modal content -->
+      <div class="relative bg-white rounded-lg shadow">
+          <!-- Modal header -->
+          <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+              <h3 class="text-lg font-semibold text-gray-900">
+                  Agregar producto a la lista
+              </h3>
+              <button type="button" (click)="showForm()"
+              class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center" data-modal-toggle="crud-modal">
+                  <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                  </svg>
+                  <span class="sr-only">Cerrar</span>
+              </button>
+          </div>
+          <!-- Modal body -->
+          <form [formGroup]="prodForm" class="p-4 md:p-5">
+            <div class="grid gap-4 mb-4 grid-cols-2">
+                <div class="col-span-2">
+                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Nombre del producto</label>
+                    <input type="text" formControlName="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Ej. Tacos dorados" required="">
+                </div>
+                <div class="col-span-2 sm:col-span-1">
+                    <label for="price" class="block mb-2 text-sm font-medium text-gray-900">Precio</label>
+                    <input type="number" formControlName="price" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Ej. $2999" required="">
+                </div>
+                <div class="col-span-2 sm:col-span-1">
+                    <label for="category" class="block mb-2 text-sm font-medium text-gray-900">Categoría</label>
+                    <input type="text" formControlName="category" id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5" placeholder="Ej. Comida Mexicana" required="">
+                </div>
+                <div class="col-span-2">
+                    <label for="description" class="block mb-2 text-sm font-medium text-gray-900">Descripción del producto</label>
+                    <textarea formControlName="description" id="description" name="description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Escribe la descripción del producto aquí" required=""></textarea>
+                </div>
+                <div class="col-span-2 sm:col-span-1">
+                    <label for="image" class="block mb-2 text-sm font-medium text-gray-900">URL de la imagen</label>
+                    <input type="text" formControlName="image" id="image" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Ej. https://ejemplo.com/imagen.jpg" required="">
+                </div>
+                <div class="col-span-2 sm:col-span-1">
+                    <label for="isActive" class="block mb-2 text-sm font-medium text-gray-900">Estado</label>
+                    <select formControlName="isActive" id="isActive" name="isActive" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
+                        <option selected value="true">Activo</option>
+                        <option value="false">Inactivo</option>
+                    </select>
+                </div>
+            </div>
+            <button type="button" (click)="addProd()"
+            class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
+                </svg>
+                Agregar nuevo producto
+            </button>
+          </form>
+      </div>
+  </div>
+
+  @if ( showError ) {
+    <div #alert
+    class="flex fixed items-center bottom-4 transform -translate-x-1/2 w-full max-w-md p-4 space-x-4 rtl:space-x-reverse text-gray-500 bg-white border divide-x rtl:divide-x-reverse divide-gray-200 rounded-lg shadow-xl space-x animate-bounce">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-red-600">
+        <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+      </svg>
+      <div class="ps-4 text-sm font-normal text-red-900">Hay campos faltantes en el formulario!</div>
+    </div>
+  }
+</div>
+

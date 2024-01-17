@@ -1,0 +1,15 @@
+@defer() {
+  <app-slow cssClass="bg-green-600"></app-slow>
+} @placeholder {
+  <p class="h-[60px] w-full bg-gradient-to-r from-purple-100 to-pink-400 animate-pulse">Carga diferida</p>
+}
+@defer(on idle) {
+  <app-slow cssClass="bg-yellow-600"></app-slow>
+} @placeholder {
+  <p class="h-[60px] w-full bg-gradient-to-r from-red-100 to-red-400 animate-pulse">Cargando</p>
+}
+@defer(on viewport) {
+  <app-slow cssClass="bg-yellow-600"></app-slow>
+} @placeholder {
+  <p class="h-[60px] w-full bg-gradient-to-r from-red-100 to-red-400 animate-pulse">Cargando</p>
+}
