@@ -1,75 +1,112 @@
 <!-- component -->
-<div class="flex items-center justify-center p-12">
-  <!-- Author: FormBold Team -->
-  <!-- Learn More: https://formbold.com -->
-  <div class="mx-auto w-full max-w-[550px]">
-    <form>
-      <div class="mb-5">
-        <label
-          for="name"
-          class="mb-3 block text-base font-medium text-[#07074D]"
-        >
-          Full Name
-        </label>
-        <input
-          type="text"
-          name="name"
-          id="name"
-          placeholder="Full Name"
-          class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-        />
+
+<section class="grid grid-cols-1 md:grid-cols-1">
+  <div class="bg-slate-100 shadow-lg p-10 rounded">
+
+    <header class="text-gray-600 body-font">
+      <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+        <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+          </svg>
+          <span class="ml-3 text-xl">Formulario de nuevo alimento!</span>
+        </a>
       </div>
-      <div class="mb-5">
-        <label
-          for="email"
-          class="mb-3 block text-base font-medium text-[#07074D]"
-        >
-          Email Address
-        </label>
-        <input
-          type="email"
-          name="email"
-          id="email"
-          placeholder="example@domain.com"
-          class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-        />
+    </header>
+
+    <form [formGroup]="FoodForm" (ngSubmit)="addProd()" class="p-4 md:p-5">
+      <!-- PRIMER CONTENEDOR -->
+      <div class="grid gap-4 mb-4 grid-cols-2">
+        <div class="col-span-2">
+          <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Nombre del producto</label>
+          <input type="text" formControlName="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Ej. Tacos dorados" required="">
+        </div>
+        <div class="col-span-2 sm:col-span-1">
+          <label for="price" class="block mb-2 text-sm font-medium text-gray-900">Precio</label>
+          <input type="number" formControlName="price" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Ej. $2999" required="">
+        </div>
+        <div class="col-span-2 sm:col-span-1">
+          <label for="category" class="block mb-2 text-sm font-medium text-gray-900">Categoría</label>
+          <input type="text" formControlName="category" id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5" placeholder="Ej. Comida Mexicana" required="">
+        </div>
+        <div class="col-span-2">
+          <label for="description" class="block mb-2 text-sm font-medium text-gray-900">Descripción del producto</label>
+          <textarea maxlength="1000" formControlName="description" id="description" name="description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Escribe la descripción del producto aquí" required=""></textarea>
+          <div class="flex justify-end items-end">
+            <p class="text-xs text-gray-500">Caracteres {{ FoodForm.get('description')?.value.length }} / 1000</p>
+          </div>
+        </div>
       </div>
-      <div class="mb-5">
-        <label
-          for="subject"
-          class="mb-3 block text-base font-medium text-[#07074D]"
-        >
-          Subject
-        </label>
-        <input
-          type="text"
-          name="subject"
-          id="subject"
-          placeholder="Enter your subject"
-          class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-        />
+
+      <!-- SEGUNDO CONTENEDOR -->
+      <div class="grid gap-2 mb-4 grid-cols-12">
+        <div class="col-span-11 sm:col-span-7">
+          <!-- Contenido del primer elemento (input de imagen) -->
+          <label for="image" class="block mb-2 text-sm font-medium text-gray-900">URL de la imagen</label>
+          <input type="text" formControlName="image" id="image" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Ej. https://ejemplo.com/imagen.jpg" required="">
+          <p class="text-xs text-gray-500">El formato de la URL debe ser: https://ejemplo.com/imagen.jpg</p>
+        </div>
+
+        <div class="col-span-1 sm:col-span-1 sm:mt-0">
+          <!-- Contenido del segundo elemento (botón) -->
+          <button appTooltip="Mostrar imagen" type="button" (click)="toggleImage()" [disabled]="!FoodForm.get('image')?.value"
+          class="mt-7 h-10 w-10 flex items-center rounded-lg text-white bg-green-500 focus:outline-none hover:bg-green-600 shadow-lg p-2.5">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+            </svg>
+          </button>
+        </div>
+
+
+        <div class="col-span-12 sm:col-span-4">
+          <!-- Contenido del tercer elemento (select) -->
+          <label for="isActive" class="block mb-2 text-sm font-medium text-gray-900">Estado</label>
+          <select formControlName="isActive" id="isActive" name="isActive" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
+            <option selected value="true">Activo</option>
+            <option value="false">Inactivo</option>
+          </select>
+        </div>
       </div>
-      <div class="mb-5">
-        <label
-          for="message"
-          class="mb-3 block text-base font-medium text-[#07074D]"
-        >
-          Message
-        </label>
-        <textarea
-          rows="4"
-          name="message"
-          id="message"
-          placeholder="Type your message"
-          class="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-        ></textarea>
-      </div>
-      <div>
-        <button type="submit"
-          class="hover:shadow-form rounded-md bg-[#6A64F1] py-3 px-8 text-base font-semibold text-white outline-none">
-          Submit
-        </button>
-      </div>
+
+      <button type="submit" [disabled]="FoodForm.invalid"
+      class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+        <span class="mr-5">Agregar nuevo producto</span>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+        </svg>
+      </button>
     </form>
   </div>
+</section>
+
+<!-- Agrega un contenedor que cubra toda la pantalla -->
+<div *ngIf="showImage"
+class="bg-black bg-opacity-50 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full md:inset-0 max-h-full">
+  <!-- Contenedor que contiene la imagen y el botón -->
+  <div class="animate-slide-up p-4 w-full max-w-md max-h-full relative" [class]="showAnimation ? 'animate-slide-down' : ''">
+    <div class="flex items-start justify-start mb-10">
+      <!-- Botón en el lado superior derecho -->
+      <button appTooltip="Cerrar imagen" (click)="toggleImage()"
+      class="absolute top-0 right-0 text-white bg-slate-700 border-0 py-2 px-6 focus:outline-none hover:bg-slate-800 rounded-full text-lg">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </svg>
+      </button>
+    </div>
+    <div class="relative">
+      <!-- La imagen con clases de Tailwind para estilizar -->
+      <img class="rounded-2xl shadow-2xl" src="{{FoodForm.get('image')?.value}}" alt="Food" />
+    </div>
+    <div class="flex items-start justify-start mb-10">
+      <!-- Botón en el lado superior derecho -->
+      <button appTooltip="Descargar imagen"
+      class="absolute bottom-0 right-0 text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded-full text-lg">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+        </svg>
+      </button>
+    </div>
+  </div>
 </div>
+
