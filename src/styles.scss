@@ -19,3 +19,31 @@
   max-width: 200px;
   word-wrap: break-word;
 }
+
+@keyframes slide-up {
+  from {
+    transform: translateY(80%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-down {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(80%);
+    opacity: 0;
+  }
+}
+.animate-slide-up {
+  animation: slide-up .7s ease-out;
+}
+.animate-slide-down {
+  animation: slide-down .7s ease-out;
+}
