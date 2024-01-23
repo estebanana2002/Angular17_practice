@@ -24,7 +24,7 @@ export class MenuComponent {
   constructor(
     private sanitizer: DomSanitizer
   ) {
-    console.log(this.myRoutes);
+    // console.log(this.myRoutes);
   }
 
   getIcon(route: any): SafeHtml {

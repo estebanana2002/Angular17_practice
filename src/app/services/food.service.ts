@@ -180,7 +180,33 @@ export class FoodService {
   private userCart = new BehaviorSubject<Food[]>([]);
   cart$ = this.userCart.asObservable();
 
-  constructor() { }
+  constructor() {
+    this.userCart.next([
+      {
+      name: 'Sushi',
+      price: 70.98,
+      description: 'Delicioso sushi japonés con variedad de pescados y arroz.',
+      image: 'https://th.bing.com/th/id/R.5734cc4e8318cc573cbfef4209fa8943?rik=yq4HGT3mRsxKkg&pid=ImgRaw&r=0',
+      category: 'Japonés',
+      isActive: false,
+    },
+    {
+      name: 'Pizza Margarita',
+      price: 270,
+      description: 'Clásica pizza italiana con salsa de tomate, mozzarella y albahaca.',
+      image: 'https://th.bing.com/th/id/OIP.oIUh8KsYt9woVHbnpJmQDwHaFj?rs=1&pid=ImgDetMain',
+      category: 'Italiano',
+      isActive: true,
+    },
+    {
+      name: 'Tacos al Pastor',
+      price: 65,
+      description: 'Tacos mexicanos con carne de cerdo marinada y piña.',
+      image: 'https://milrecetas.net/wp-content/uploads/2016/09/Tacos-al-pastor-5.jpg',
+      category: 'Mexicano',
+      isActive: true,
+    }]);
+  }
 
   public getFoods() {
     return this.myFoods;
