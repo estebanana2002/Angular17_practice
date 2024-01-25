@@ -20,20 +20,36 @@
         <div class="col-span-2">
           <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Nombre del producto</label>
           <input type="text" formControlName="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Ej. Tacos dorados" required="">
+          <div *ngIf="validateControl('name')" class="text-red-600 text-sm">
+            <small class="text-xs text-red-500">El campo es requerido</small>
+          </div>
         </div>
         <div class="col-span-2 sm:col-span-1">
           <label for="price" class="block mb-2 text-sm font-medium text-gray-900">Precio</label>
           <input type="number" formControlName="price" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Ej. $2999" required="">
+          <div *ngIf="validateControl('price')" class="text-red-600 text-sm">
+            <small class="text-xs text-red-500">El campo es requerido</small>
+          </div>
         </div>
         <div class="col-span-2 sm:col-span-1">
-          <label for="category" class="block mb-2 text-sm font-medium text-gray-900">Categoría</label>
-          <input type="text" formControlName="category" id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5" placeholder="Ej. Comida Mexicana" required="">
+          <label for="category" class="block mb-2 text-sm font-medium text-gray-900">Categoria</label>
+          <select value="a" formControlName="category" id="category" name="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
+            <option selected value="a">Seleccione una categoria</option>
+            @for ( category of categories; track category) {
+              <option [value]="category">{{category}}</option>
+            }
+          </select>
         </div>
         <div class="col-span-2">
           <label for="description" class="block mb-2 text-sm font-medium text-gray-900">Descripción del producto</label>
           <textarea maxlength="1000" formControlName="description" id="description" name="description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Escribe la descripción del producto aquí" required=""></textarea>
-          <div class="flex justify-end items-end">
-            <p class="text-xs text-gray-500">Caracteres {{ FoodForm.get('description')?.value.length }} / 1000</p>
+          <div class="container flex justify-between">
+            <div class="" *ngIf="validateControl('description')">
+              <small class="text-xs text-red-500">El campo es requerido</small>
+            </div>
+            <div class="absolute right-20">
+              <small class="text-xs text-gray-500">Caracteres {{ FoodForm.get('description')?.value.length }} / 1000</small>
+            </div>
           </div>
         </div>
       </div>
@@ -44,7 +60,14 @@
           <!-- Contenido del primer elemento (input de imagen) -->
           <label for="image" class="block mb-2 text-sm font-medium text-gray-900">URL de la imagen</label>
           <input type="text" formControlName="image" id="image" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Ej. https://ejemplo.com/imagen.jpg" required="">
-          <p class="text-xs text-gray-500">El formato de la URL debe ser: https://ejemplo.com/imagen.jpg</p>
+          <div class="container flex justify-between">
+            <div class="">
+              <p class="text-xs text-gray-500">El formato de la URL debe ser: https://ejemplo.com/imagen.jpg</p>
+            </div>
+            <div class="" *ngIf="validateControl('image')">
+              <small class="text-xs text-red-500">El campo es requerido</small>
+            </div>
+          </div>
         </div>
 
         <div class="col-span-1 sm:col-span-1 sm:mt-0">
@@ -58,9 +81,7 @@
           </button>
         </div>
 
-
         <div class="col-span-12 sm:col-span-4">
-          <!-- Contenido del tercer elemento (select) -->
           <label for="isActive" class="block mb-2 text-sm font-medium text-gray-900">Estado</label>
           <select formControlName="isActive" id="isActive" name="isActive" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
             <option selected value="true">Activo</option>

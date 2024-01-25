@@ -90,15 +90,16 @@ export default class ManageFoodsComponent {
     // this.myFoods.splice(position, 1);
   }
 
-  public addToCart() {
-    this.FoodS.addToCart({
-      name: 'Chilaquiles',
-      price: 79.99,
-      description: 'Los chilaquiles, tesoro culinario de la gastronomía mexicana, son una deliciosa y reconfortante explosión de sabores y texturas. Este platillo tan versátil combina tortillas de maíz crujientes, bañadas en salsa roja o verde, con la suavidad de crema, el toque salado del queso fresco y la frescura de cebolla y cilantro. La magia de los chilaquiles radica en su capacidad de adaptarse a todos los gustos: desde los que prefieren el picante hasta aquellos que buscan un sabor más suave. Pueden acompañarse de jugosos trozos de pollo, tiernos huevos pochados o aguacate cremoso. Este manjar es un desayuno reconfortante, un almuerzo satisfactorio o una cena reconociendo su versatilidad a lo largo del día. Los chilaquiles no solo alimentan el cuerpo, sino que también alimentan el alma, transportando a quien los prueba a las calles de México, donde la tradición y la autenticidad se fusionan en cada bocado. Un plato que va más allá de ser una simple comida, los chilaquiles son una experiencia gastronómica que celebra la riqueza de la cultura mexicana en cada porción.',
-      image: 'https://bing.com/th?id=OSK.77ded07c75d2037cd7f5df26b99926b1',
-      category: 'Mexicana',
-      isActive: true,
-    });
+  public addToCart(food: any) {
+    // this.FoodS.addToCart({
+    //   name: 'Chilaquiles',
+    //   price: 79.99,
+    //   description: 'Los chilaquiles, tesoro culinario de la gastronomía mexicana, son una deliciosa y reconfortante explosión de sabores y texturas. Este platillo tan versátil combina tortillas de maíz crujientes, bañadas en salsa roja o verde, con la suavidad de crema, el toque salado del queso fresco y la frescura de cebolla y cilantro. La magia de los chilaquiles radica en su capacidad de adaptarse a todos los gustos: desde los que prefieren el picante hasta aquellos que buscan un sabor más suave. Pueden acompañarse de jugosos trozos de pollo, tiernos huevos pochados o aguacate cremoso. Este manjar es un desayuno reconfortante, un almuerzo satisfactorio o una cena reconociendo su versatilidad a lo largo del día. Los chilaquiles no solo alimentan el cuerpo, sino que también alimentan el alma, transportando a quien los prueba a las calles de México, donde la tradición y la autenticidad se fusionan en cada bocado. Un plato que va más allá de ser una simple comida, los chilaquiles son una experiencia gastronómica que celebra la riqueza de la cultura mexicana en cada porción.',
+    //   image: 'https://bing.com/th?id=OSK.77ded07c75d2037cd7f5df26b99926b1',
+    //   category: 'Mexicana',
+    //   isActive: true,
+    // });
+    this.FoodS.addToCart(food);
   }
 
   public toggleProdModal(product?: Food) {
@@ -119,4 +120,14 @@ export default class ManageFoodsComponent {
     this.showFormModal = !this.showFormModal;
   }
 
+  public search(event: Event) {
+    const inputValue = (event.target as HTMLInputElement).value.trim();
+    setTimeout(() => {
+      if ( inputValue != '' ) {
+        this.allFood = this.FoodS.handleInput(inputValue);
+      } else {
+        this.allFood = this.FoodS.getFoods();
+      }
+    }, 500);
+  }
 }

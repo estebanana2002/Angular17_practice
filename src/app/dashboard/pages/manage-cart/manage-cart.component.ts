@@ -1,15 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { MenuComponent } from '../../components/menu/menu.component';
 import { Router } from '@angular/router';
 import { FoodService } from '../../../services/food.service';
+import { TooltipDirective } from '../../../core/Directives/Tooltip.directive';
 
 @Component({
   selector: 'app-manage-cart',
   standalone: true,
   imports: [
     CommonModule,
-    MenuComponent
+    TooltipDirective
   ],
   templateUrl: './manage-cart.component.html',
   styleUrl: './manage-cart.component.scss'
@@ -24,8 +24,13 @@ export default class ManageCartComponent {
       (cart: any) => {
         this.userCart = cart;
       }
-    )
+    );
   }
+
+  public removeFromCart(food: any) {
+    this.FoodS.removeFromCart(food);
+  }
+  
   public backToPage() {
     this.router.navigate(['/dashboard']);
   }
