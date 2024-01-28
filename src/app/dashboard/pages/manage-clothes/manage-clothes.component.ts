@@ -40,7 +40,13 @@ export default class ManageClothesComponent {
 
   private fb = inject(FormBuilder);
   public clotheForm!: FormGroup;
-  constructor( ) {
+  public validators: any = {
+    required: (input: string) => `El campo ${input} es requerido!`,
+    max: (maxValue: number) => `El valor no debe ser mayor que ${maxValue}!`,
+    min: (minValue: number) => `El valor no debe ser menor que ${minValue}!`,
+    minLength: (minLength: number) => `La descripcion debe ser mayor que ${minLength} caracteres!`,
+  }
+  constructor() {
     this.clotheForm = this.fb.group({
       nombre: ['', [Validators.required]],
       descripcion: ['', [Validators.required, Validators.minLength(20)]],
@@ -51,10 +57,25 @@ export default class ManageClothesComponent {
     });
   }
 
-  public validateControl(input: string) {
-    return !!this.clotheForm.get(input)?.getError('required') && !!this.clotheForm.get(input)?.touched ? `El campo ${input} es requerido` : '';
+  public validateController(inputField: string) {
+    const input = this.clotheForm.get(inputField);
+
+    if (input?.touched) {
+      if (input?.hasError('required')) {
+        return this.validators.required(inputField);
+      } else if (input?.hasError('max')) {
+          if (inputField === 'precio') {
+            return this.validators.max(5000);
+          } else if (inputField === 'stock') {
+            return this.validators.max(500);
+          }
+      } else if (input?.hasError('min')) {
+        return this.validators.min(0);
+      } else if (input?.hasError('minlength')) {
+        return this.validators.minLength(20);
+      }
+    }
+    return null;
   }
-  public returnMesagge(input: string) {
-    return `El campo ${input} es requerido!`;
-  }
+
 }

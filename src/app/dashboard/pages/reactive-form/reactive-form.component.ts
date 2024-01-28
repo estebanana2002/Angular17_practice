@@ -52,15 +52,13 @@ export default class ReactiveFormComponent {
     private router: Router
   ) {
     this.FoodForm = this.fb.group({
-      name: ['', [Validators.required]],
+      name: ['Pescado al mojo de ajo', [Validators.required]],
       price: [145, [Validators.required]],
       description: ['Es un pescado al mojo de ajo, pero lo escribi mal poke suena gracioso al ojo de majo jaja', [Validators.required, Validators.maxLength(1000)]],
       image: ['https://th.bing.com/th/id/OIP.Wfsk8GNbCBAwFqxaFLrMxAHaE7?rs=1&pid=ImgDetMain', [Validators.required]],
       category: [null, [Validators.required]],
       isActive: [true, [Validators.required]],
     });
-    this.FoodForm.get('category')?.patchValue(0, { onlySelf: true });
-    this.FoodForm.get('isActive')?.patchValue(0, { onlySelf: true });
   }
 
   public addProd() {
