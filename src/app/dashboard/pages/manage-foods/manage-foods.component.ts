@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, NgZone } from '@angular/core';
 import { TooltipDirective } from '../../../core/Directives/Tooltip.directive';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Food } from '../../../interfaces/Food';
 import { FoodService } from '../../../services/food.service';
 
+declare var webkitSpeechRecognition: any;
 
 @Component({
   selector: 'app-manage-foods',
@@ -33,12 +34,68 @@ export default class ManageFoodsComponent {
     isActive: new FormControl('true', [Validators.required]),
   });
 
+  public recognition =  new webkitSpeechRecognition();
+  public isStoppedSpeechRecog: boolean = false;
+  public isRecording: boolean = false;
+  public text = '';
+  public tempWords: any = '';
+
   constructor(
     private cdr: ChangeDetectorRef,
-    private FoodS: FoodService
+    private FoodS: FoodService,
     ) {
       this.allFood = this.FoodS.getFoods();
+      //!
+      this.init();
     }
+
+  private init() {
+    this.recognition.interimResults = true;
+    this.recognition.lang = 'es-MX';
+
+    this.recognition.addEventListener('result', (e: any) => {
+      const transcript = Array.from(e.results)
+        .map((result: any) => result[0])
+        .map((result) => result.transcript)
+        .join('');
+      this.tempWords = transcript.replace(/\./g, '').trim();
+      console.log(transcript);
+    });
+  }
+
+  public start() {
+    this.isStoppedSpeechRecog = false;
+    this.isRecording = true;
+    this.text = '';
+    this.recognition.start();
+    console.log("Speech recognition started")
+    this.recognition.addEventListener('end', (condition: any) => {
+      if (this.isStoppedSpeechRecog) {
+        this.recognition.stop();
+        console.log("End speech recognition")
+      } else {
+        this.wordConcat();
+        this.recognition.start();
+      }
+    });
+  }
+  public stop() {
+    this.isStoppedSpeechRecog = true;
+    this.isRecording = false;
+    this.wordConcat()
+    this.recognition.stop();
+    console.log("End speech recognition")
+  }
+
+  private wordConcat() {
+    this.text = this.text + ' ' + this.tempWords;
+    this.tempWords = '';
+    if ( this.text ) {
+
+      this.debounceSearch(this.text);
+    }
+  }
+
 
 
   public addProd() {
@@ -120,14 +177,22 @@ export default class ManageFoodsComponent {
     this.showFormModal = !this.showFormModal;
   }
 
-  public search(event: Event) {
-    const inputValue = (event.target as HTMLInputElement).value.trim();
-    setTimeout(() => {
-      if ( inputValue != '' ) {
-        this.allFood = this.FoodS.handleInput(inputValue);
-      } else {
-        this.allFood = this.FoodS.getFoods();
-      }
-    }, 500);
+  public search(event: any) {
+    const inputValue = event.target.value.toLowerCase().trim().replace(/\./g, '');
+
+    this.debounceSearch(inputValue);
+  }
+
+  private debounceSearch(inputValue: string): void {
+    if (inputValue) {
+      setTimeout(() => {
+          console.log(inputValue);
+          this.allFood = this.FoodS.handleInput(inputValue.replace(/\./g, '').trim());
+          console.log(this.allFood, 'Busqueda');
+      }, 100);
+    } else {
+      this.allFood = this.FoodS.getFoods();
+      console.log(this.allFood, 'TODO');
+    }
   }
 }

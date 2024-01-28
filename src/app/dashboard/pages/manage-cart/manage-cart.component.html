@@ -22,7 +22,11 @@
         <div class="p-4">
             <div
             class="shadow-xl h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
-                <img class="lg:h-48 md:h-36 w-full object-cover object-center" [src]="itemCart.image" alt="blog">
+                @defer(on viewport) {
+                  <img class="lg:h-48 md:h-36 w-full object-cover object-center" [src]="itemCart.image" alt="blog">
+                } @placeholder {
+                  <p class="h-[60px] w-full bg-gradient-to-r from-red-100 to-red-400 animate-pulse">Cargando</p>
+                }
                 <div class="p-6">
                     <h2 class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">Categoria: {{itemCart.category}}</h2>
                     <h1 class="title-font text-lg font-medium text-gray-900 mb-3">{{itemCart.name}}</h1>
@@ -70,7 +74,11 @@
         @for ( itemCart of userCart; track itemCart; let i = $index ) {
           <div class="flex items-center justify-between h-37 border-2 border-zinc-100 rounded-lg bg-white mb-4 mx-2 hover:border-zinc-200 hover:shadow-lg transform hover:scale-105 transition-transform">
             <div class="flex items-center">
-              <img class="rounded-full w-16 h-16 p-1 object-cover object-center" [src]="itemCart.image" alt="Image" />
+              @defer(on viewport) {
+                <img class="rounded-full w-16 h-16 p-1 object-cover object-center" [src]="itemCart.image" alt="Image" />
+              } @placeholder {
+                <p class="h-[60px] w-full bg-gradient-to-r from-red-100 to-red-400 animate-pulse">Cargando</p>
+              }
               <div class="ml-2">
                 <h1>{{i + 1}}° {{itemCart.name}}</h1>
                 <p class="text font-light text-gray-500">Precio: <strong>{{itemCart.price | currency}}</strong></p>
@@ -94,11 +102,11 @@
         <footer>
           <div class="container px-5 py-5 mx-auto flex justify-between">
             <div class="text-xl">Total:</div>
-            <div class="text-xl text-slate-700 border border-b-slate-500"> {{192 | currency}} </div>
+            <div class="text-xl text-slate-700 border border-b-slate-500"> {{subtotal | currency}} </div>
           </div>
           <div class="container px-5 py-5">
-            <button
-            class="w-full flex items-center justify-center text-white text-lg bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded">
+            <button [disabled]="userCart.length === 0"
+            class="w-full flex items-center justify-center text-white text-lg bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded-full shadow-xl disabled:bg-green-700">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" />
             </svg>

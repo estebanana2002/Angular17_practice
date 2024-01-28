@@ -8,7 +8,6 @@ import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-reactive-form',
   standalone: true,
@@ -60,6 +59,8 @@ export default class ReactiveFormComponent {
       category: [null, [Validators.required]],
       isActive: [true, [Validators.required]],
     });
+    this.FoodForm.get('category')?.patchValue(0, { onlySelf: true });
+    this.FoodForm.get('isActive')?.patchValue(0, { onlySelf: true });
   }
 
   public addProd() {
@@ -118,6 +119,6 @@ export default class ReactiveFormComponent {
   }
 
   public validateControl(control: string) {
-    return !!this.FoodForm.get(control)?.hasError && this.FoodForm.get(control)?.touched;
+    return !!this.FoodForm.get(control)?.errors && this.FoodForm.get(control)?.touched;
   }
 }

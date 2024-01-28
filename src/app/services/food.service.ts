@@ -226,7 +226,9 @@ export class FoodService {
   }
 
   public handleInput(inputValue: string) {
-    const condicion = (food: any): boolean => food.name.toLowerCase().includes(inputValue);
+    const condicion = (food: any): boolean =>
+      food.name.toLowerCase().trim().includes(inputValue);
+
     const searchUser = this.myFoods.filter(condicion);
     return searchUser;
   }

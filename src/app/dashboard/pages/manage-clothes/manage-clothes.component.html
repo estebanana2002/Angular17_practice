@@ -1,0 +1,129 @@
+<div class="container">
+  <!-- component -->
+  <section class="grid grid-cols-1 md:grid-cols-1">
+    <div class=" shadow-lg p-10 rounded">
+      <header class="text-gray-600 body-font">
+        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+          <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+            </svg>
+            <span class="ml-3 text-xl">Formulario de nueva prenda!</span>
+          </a>
+        </div>
+      </header>
+
+      <form [formGroup]="clotheForm">
+        <div class="grid grid-cols-2 gap-6">
+            <div class="flex flex-col mb-4">
+                <label>Nombre
+                    <span class="block text-xs font-light text-stone-400">Ingrese el nombre de la prenda</span>
+                </label>
+                <input formControlName="nombre" type="text" placeholder="Ej. playera Gucci" class="mt-2 px-4 py-2 shadow rounded"/>
+                @if (validateControl('nombre')) {
+                  <div class="">
+                    <small class="text-xs text-red-500">{{returnMesagge('nombre')}}</small>
+                  </div>
+                }
+            </div>
+            <div class="flex flex-col mb-4">
+                <label>Descripción
+                    <span class="block text-xs font-light text-stone-400">Ingrese una descripción del producto</span>
+                </label>
+                <textarea formControlName="descripcion" rows="5" placeholder="Ej. Playera de verano playera de la marca gucci"
+                minlength="20" maxlength="1000" class="mt-2 px-6 py-2 shadow rounded"></textarea>
+                <!-- <input type="text" placeholder="Ej. Playera de verano playera de la marca gucci" class="mt-2 px-4 py-2 shadow rounded"/> -->
+                @if (validateControl('descripcion')) {
+                  <div class="">
+                    <small class="text-xs text-red-500">{{returnMesagge('descripcion')}}</small>
+                  </div>
+                }
+                @if (clotheForm.get('descripcion')?.getError('minLength')) {
+                  <div class="">
+                    <small class="text-xs text-red-500">Minimo 20 caracteres</small>
+                  </div>
+                }
+                <div class="flex items-end justify-end">
+                  <small class="text-xs text-gray-500">Caracteres {{ clotheForm.get('descripcion')?.value.length }} / 1000</small>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col mb-4">
+            <label>Precio
+                <span class="block text-xs font-light text-stone-400">Ingrese el precio unitario de la prenda</span>
+            </label>
+            <input formControlName="precio" type="number" placeholder="00.00" class="mt-2 px-4 py-2 shadow rounded"/>
+            @if (validateControl('precio')) {
+              <div class="">
+                <small class="text-xs text-red-500">{{returnMesagge('precio')}}</small>
+              </div>
+            }
+            @if (clotheForm.get('precio')?.getError('max')) {
+              <div class="">
+                <small class="text-xs text-red-500">El precio no debe ser mayor a $5000</small>
+              </div>
+            }
+        </div>
+        <div class="flex flex-col mb-4">
+            <label>Stock
+                <span class="block text-xs font-light text-stone-400">Ingrese la cantidad disponible de la prenda</span>
+            </label>
+            <input formControlName="stock" type="number" placeholder="0" class="mt-2 px-4 py-2 shadow rounded"/>
+            @if (validateControl('stock')) {
+              <div class="">
+                <small class="text-xs text-red-500">{{returnMesagge('stock')}}</small>
+              </div>
+            }
+            @if (clotheForm.get('stock')?.getError('min')) {
+              <div class="">
+                <small class="text-xs text-red-500">El monto no debe ser menor a 0</small>
+              </div>
+            }
+            @if (clotheForm.get('stock')?.getError('max')) {
+              <div class="">
+                <small class="text-xs text-red-500">El monto maximo no debe ser mayo a 5,000</small>
+              </div>
+            }
+        </div>
+
+        <div class="flex flex-col mb-4">
+            <label>Marca
+                <span class="block text-xs font-light text-stone-400">Seleccione la marca de la prenda</span>
+            </label>
+            <!-- <textarea rows="5" placeholder="Ej. " class="mt-2 px-6 py-2 shadow rounded"></textarea> -->
+            <select formControlName="marca" id="marca" name="marca" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
+              <option disabled selected>Seleccione una categoria</option>
+              @for ( marca of marcas; track marca) {
+                <option [value]="marca">{{marca}}</option>
+              }
+            </select>
+            @if (validateControl('marca')) {
+              <div class="">
+                <small class="text-xs text-red-500">{{returnMesagge('marca')}}</small>
+              </div>
+            }
+        </div>
+
+        <div class="flex flex-col mb-4">
+            <label>Clasificacion
+                <span class="block text-xs font-light text-stone-400">Seleccione la clasificacion (talla) de la prenda</span>
+            </label>
+            <select formControlName="clasificacion" id="clasificacion" name="clasificacion" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
+              <option disabled selected>Seleccione una categoria</option>
+              @for ( c of clasificaciones; track c) {
+                <option [value]="c">{{c}}</option>
+              }
+            </select>
+            @if (validateControl('clasificacion')) {
+              <div class="">
+                <small class="text-xs text-red-500">{{returnMesagge('clasificacion')}}</small>
+              </div>
+            }
+        </div>
+        <div class="mt-6 flex gap-6">
+            <button type="submit" class="rounded-full bg-orange-300 py-4 px-10 font-bold text-white shadow hover:bg-orange-500">Guardar</button>
+            <!-- <button type="submit" class="rounded-full bg-transparent py-4 px-10 font-bold text-stone-400 border border-stone-200 hover:border-orange-300 hover:text-orange-300">Réinitialiser</button> -->
+        </div>
+    </form>
+    </div>
+  </section>

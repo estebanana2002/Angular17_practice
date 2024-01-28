@@ -57,10 +57,11 @@ export class TooltipDirective {
   }
 
   private removeTooltip() {
-    if (this.tooltipElement) {
+    if (this.tooltipElement && this.tooltipElement.parentNode === document.body) {
       document.body.removeChild(this.tooltipElement);
       this.tooltipElement = undefined!;
     }
   }
+
 
 }

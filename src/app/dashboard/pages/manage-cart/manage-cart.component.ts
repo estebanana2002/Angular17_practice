@@ -16,21 +16,26 @@ import { TooltipDirective } from '../../../core/Directives/Tooltip.directive';
 })
 export default class ManageCartComponent {
   public userCart: any[] = [];
+
+  public subtotal: number = 0;
+
   constructor(
     private router: Router,
-    private FoodS: FoodService
+    private FoodS: FoodService,
   ) {
     this.FoodS.cart$.subscribe(
       (cart: any) => {
         this.userCart = cart;
+        this.subtotal = this.userCart.reduce((total, item) => total + item.price, 0);
       }
     );
+
   }
 
   public removeFromCart(food: any) {
     this.FoodS.removeFromCart(food);
   }
-  
+
   public backToPage() {
     this.router.navigate(['/dashboard']);
   }

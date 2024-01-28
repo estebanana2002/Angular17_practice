@@ -33,8 +33,8 @@
         </div>
         <div class="col-span-2 sm:col-span-1">
           <label for="category" class="block mb-2 text-sm font-medium text-gray-900">Categoria</label>
-          <select value="a" formControlName="category" id="category" name="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
-            <option selected value="a">Seleccione una categoria</option>
+          <select formControlName="category" id="category" name="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
+            <option disabled value="0">Seleccione una categoria</option>
             @for ( category of categories; track category) {
               <option [value]="category">{{category}}</option>
             }
@@ -64,16 +64,17 @@
             <div class="">
               <p class="text-xs text-gray-500">El formato de la URL debe ser: https://ejemplo.com/imagen.jpg</p>
             </div>
-            <div class="" *ngIf="validateControl('image')">
-              <small class="text-xs text-red-500">El campo es requerido</small>
-            </div>
+            @if ( validateControl('image') ) {
+              <div class="">
+                <small class="text-xs text-red-500">El campo es requerido</small>
+              </div>
+            }
           </div>
         </div>
 
         <div class="col-span-1 sm:col-span-1 sm:mt-0">
-          <!-- Contenido del segundo elemento (botón) -->
           <button appTooltip="Mostrar imagen" type="button" (click)="toggleImage()" [disabled]="!FoodForm.get('image')?.value"
-          class="mt-7 h-10 w-10 flex items-center rounded-lg text-white bg-green-500 focus:outline-none hover:bg-green-600 shadow-lg p-2.5">
+          class="mt-7 h-10 w-10 flex items-center rounded-lg text-white bg-green-500 focus:outline-none hover:bg-green-600 disabled:bg-green-300 shadow-lg p-2.5">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
               <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
@@ -84,14 +85,15 @@
         <div class="col-span-12 sm:col-span-4">
           <label for="isActive" class="block mb-2 text-sm font-medium text-gray-900">Estado</label>
           <select formControlName="isActive" id="isActive" name="isActive" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
-            <option selected value="true">Activo</option>
+            <option disabled value="0">Seleccione el estado</option>
+            <option value="true">Activo</option>
             <option value="false">Inactivo</option>
           </select>
         </div>
       </div>
 
       <button type="submit" [disabled]="FoodForm.invalid"
-      class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+      class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 disabled:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-5 text-center">
         <span class="mr-5">Agregar nuevo producto</span>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
           <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
@@ -101,13 +103,10 @@
   </div>
 </section>
 
-<!-- Agrega un contenedor que cubra toda la pantalla -->
 <div *ngIf="showImage"
 class="bg-black bg-opacity-50 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full md:inset-0 max-h-full">
-  <!-- Contenedor que contiene la imagen y el botón -->
   <div class="animate-slide-up p-4 w-full max-w-md max-h-full relative" [class]="showAnimation ? 'animate-slide-down' : ''">
     <div class="flex items-start justify-start mb-10">
-      <!-- Botón en el lado superior derecho -->
       <button appTooltip="Cerrar imagen" (click)="toggleImage()"
       class="absolute top-0 right-0 text-white bg-slate-700 border-0 py-2 px-6 focus:outline-none hover:bg-slate-800 rounded-full text-lg">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -116,11 +115,9 @@ class="bg-black bg-opacity-50 overflow-y-auto overflow-x-hidden fixed top-0 righ
       </button>
     </div>
     <div class="relative">
-      <!-- La imagen con clases de Tailwind para estilizar -->
       <img class="rounded-2xl shadow-2xl" src="{{FoodForm.get('image')?.value}}" alt="Food" />
     </div>
     <div class="flex items-start justify-start mb-10">
-      <!-- Botón en el lado superior derecho -->
       <button appTooltip="Descargar imagen"
       class="absolute bottom-0 right-0 text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded-full text-lg">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
