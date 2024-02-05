@@ -43,7 +43,8 @@ export default class DynamicFormComponent {
     this.newSong.reset();
   }
 
-  public saveForm() { 
+  public saveForm() {
+    console.log(this.playlist);
 
   }
 

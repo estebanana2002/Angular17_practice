@@ -34,11 +34,12 @@ export default class CreateExamComponent {
   public answer: FormControl = new FormControl('', Validators.required);
   public examForm!: FormGroup;
 
-  public answers: Answer[] = [];
+  public answers: any;
 
   constructor(
     private fb: FormBuilder,
   ) {
+    this.answers = this.fb.array([]);
     this.examForm = fb.group({
       group: ['801', [Validators.required]],
       subject: ['Desarrollo web', [Validators.required]],
@@ -104,21 +105,23 @@ export default class CreateExamComponent {
   public get getQuestions() {
     return this.examForm.get('questions') as FormArray;
   }
-
+  public get getAnswers() {
+    return this.answers as FormArray;
+  }
 
   public addQuestion() {
     if ( this.question.invalid ) return;
     const question = {
       question: this.question.value,
       points: this.points.value,
-      answer: this.fb.array([... this.answers], Validators.required),
+      answer: this.getAnswers,
     };
     this.getQuestions.push(
       this.fb.control(question, Validators.required)
     );
     console.log(this.getQuestions);
 
-    this.answers = [];
+    // this.answers = [];
     this.question.reset();
     this.points.reset();
   }
@@ -133,7 +136,9 @@ export default class CreateExamComponent {
       answer: this.answer.value,
       correct: false,
     };
-    this.answers.push(answer);
+    this.getAnswers.push(
+      this.fb.control(answer, Validators.required)
+    );
     console.log(this.answers);
 
     this.answer.reset();
@@ -141,5 +146,9 @@ export default class CreateExamComponent {
 
   public selectCorrect(answer: Answer) {
     answer.correct = !answer.correct;
+  }
+
+  public saveExam() {
+    console.log(this.examForm.value);
   }
 }
