@@ -1,5 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { take } from 'rxjs';
 
 /**
  * formulario de ropa
@@ -46,14 +48,16 @@ export default class ManageClothesComponent {
     min: (minValue: number) => `El valor no debe ser menor que ${minValue}!`,
     minLength: (minLength: number) => `La descripcion debe ser mayor que ${minLength} caracteres!`,
   }
-  constructor() {
+  constructor(
+    private toastr: ToastrService,
+  ) {
     this.clotheForm = this.fb.group({
       nombre: ['', [Validators.required]],
       descripcion: ['', [Validators.required, Validators.minLength(20)]],
       precio: [null, [Validators.required, Validators.min(0), Validators.max(5000)]],
       stock: [null, [Validators.required, Validators.min(0), Validators.max(500)]],
-      marca: [null, [Validators.required]],
-      clasificacion: [null, [Validators.required]],
+      marca: ['', [Validators.required]],
+      clasificacion: ['', [Validators.required]],
     });
   }
 
@@ -76,6 +80,28 @@ export default class ManageClothesComponent {
       }
     }
     return null;
+  }
+
+  public saveClothe() {
+    if ( this.clotheForm.invalid ) {
+      this.clotheForm.markAllAsTouched();
+    } else {
+      this.clotheForm.reset({
+        nombre: 'Camisa de marca',
+        descripcion: 'zapatos de gucci',
+        precio: null,
+        stock: null,
+        marca: '',
+        clasificacion: '',
+      });
+      this.showToaster();
+    }
+  }
+
+  public showToaster() {
+    this.toastr.success('Se agregó el producto correctamente!', 'Productgo agregado!')
+      .onTap
+      .pipe(take(1));
   }
 
 }

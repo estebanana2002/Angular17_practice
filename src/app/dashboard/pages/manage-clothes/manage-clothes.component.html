@@ -13,7 +13,7 @@
         </div>
       </header>
 
-      <form [formGroup]="clotheForm">
+      <form [formGroup]="clotheForm" (ngSubmit)="saveClothe()">
         <div class="grid grid-cols-2 gap-6">
             <div class="flex flex-col mb-4">
                 <label>Nombre
@@ -73,7 +73,7 @@
             <!-- <textarea rows="5" placeholder="Ej. " class="mt-2 px-6 py-2 shadow rounded"></textarea> -->
             <select formControlName="marca" id="marca" name="marca"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
-              <option disabled selected>Seleccione una categoria</option>
+              <option disabled selected value="">Seleccione una categoria</option>
               @for ( marca of marcas; track marca) {
                 <option [value]="marca">{{marca}}</option>
               }
@@ -90,7 +90,7 @@
                 <span class="block text-xs font-light text-stone-400">Seleccione la clasificacion (talla) de la prenda</span>
             </label>
             <select formControlName="clasificacion" id="clasificacion" name="clasificacion" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
-              <option disabled selected>Seleccione una categoria</option>
+              <option disabled selected value="">Seleccione una categoria</option>
               @for ( c of clasificaciones; track c) {
                 <option [value]="c">{{c}}</option>
               }
