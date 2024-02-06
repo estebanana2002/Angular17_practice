@@ -1,5 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { take } from 'rxjs';
 
 /**
  * formulario de ropa
@@ -40,21 +42,66 @@ export default class ManageClothesComponent {
 
   private fb = inject(FormBuilder);
   public clotheForm!: FormGroup;
-  constructor( ) {
+  public validators: any = {
+    required: (input: string) => `El campo ${input} es requerido!`,
+    max: (maxValue: number) => `El valor no debe ser mayor que ${maxValue}!`,
+    min: (minValue: number) => `El valor no debe ser menor que ${minValue}!`,
+    minLength: (minLength: number) => `La descripcion debe ser mayor que ${minLength} caracteres!`,
+  }
+  constructor(
+    private toastr: ToastrService,
+  ) {
     this.clotheForm = this.fb.group({
       nombre: ['', [Validators.required]],
       descripcion: ['', [Validators.required, Validators.minLength(20)]],
       precio: [null, [Validators.required, Validators.min(0), Validators.max(5000)]],
       stock: [null, [Validators.required, Validators.min(0), Validators.max(500)]],
-      marca: [null, [Validators.required]],
-      clasificacion: [null, [Validators.required]],
+      marca: ['', [Validators.required]],
+      clasificacion: ['', [Validators.required]],
     });
   }
 
-  public validateControl(input: string) {
-    return !!this.clotheForm.get(input)?.getError('required') && !!this.clotheForm.get(input)?.touched ? `El campo ${input} es requerido` : '';
+  public validateController(inputField: string) {
+    const input = this.clotheForm.get(inputField);
+
+    if (input?.touched) {
+      if (input?.hasError('required')) {
+        return this.validators.required(inputField);
+      } else if (input?.hasError('max')) {
+          if (inputField === 'precio') {
+            return this.validators.max(5000);
+          } else if (inputField === 'stock') {
+            return this.validators.max(500);
+          }
+      } else if (input?.hasError('min')) {
+        return this.validators.min(0);
+      } else if (input?.hasError('minlength')) {
+        return this.validators.minLength(20);
+      }
+    }
+    return null;
   }
-  public returnMesagge(input: string) {
-    return `El campo ${input} es requerido!`;
+
+  public saveClothe() {
+    if ( this.clotheForm.invalid ) {
+      this.clotheForm.markAllAsTouched();
+    } else {
+      this.clotheForm.reset({
+        nombre: 'Camisa de marca',
+        descripcion: 'zapatos de gucci',
+        precio: null,
+        stock: null,
+        marca: '',
+        clasificacion: '',
+      });
+      this.showToaster();
+    }
   }
+
+  public showToaster() {
+    this.toastr.success('Se agregó el producto correctamente!', 'Productgo agregado!')
+      .onTap
+      .pipe(take(1));
+  }
+
 }

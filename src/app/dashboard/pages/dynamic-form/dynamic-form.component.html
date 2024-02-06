@@ -1,0 +1,63 @@
+<form [formGroup]="playlist" (ngSubmit)="saveForm()">
+  <div class="relative mb-4">
+      <label for="email" class="leading-7 text-sm text-gray-600">Nombre</label>
+      <input type="email" id="email" name="email" formControlName="name"
+      class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+      @if (validateController('name')) {
+        <div class="">
+          <small class="text-xs text-red-500">{{getFieldError('name')}}</small>
+        </div>
+      }
+  </div>
+  <div class="relative mb-4">
+      <label for="email" class="leading-7 text-sm text-gray-600">Nueva cancion</label>
+      <input type="email" id="email" name="email" [formControl]="newSong"
+      class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+  </div>
+  <button type="button" (click)="addNewSong()"
+  class="inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 text-sm rounded-full">
+      Agregar canciones
+  </button>
+
+
+  <header class="text-gray-600 body-font">
+    <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+      <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m9 9 10.5-3m0 6.553v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 1 1-.99-3.467l2.31-.66a2.25 2.25 0 0 0 1.632-2.163Zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 0 1-.99-3.467l2.31-.66A2.25 2.25 0 0 0 9 15.553Z" />
+        </svg>
+        <span class="ml-3 text-xl">Canciones agregadas:</span>
+      </a>
+    </div>
+  </header>
+  <hr>
+
+  @for ( song of favoriteSongs.controls; track song.value; let i = $index; ) {
+    <div class="flex justify-between" formArrayName="songs">
+      <div class="mb-4 w-3/4">
+        <label for="email" class="leading-7 text-sm text-gray-600">Canciones de la playlist</label>
+        <input [formControlName]="i" type="email" id="email" name="email"
+        class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out w-full">
+        @if ( isValidInArray(favoriteSongs, i) ) {
+          <div class="">
+            <small class="text-xs text-red-500">Este campo es requerido</small>
+          </div>
+        }
+      </div>
+      <div class="py-1 my-7">
+        <button type="button" (click)="deleteFromArray(i)"
+        class="px-4 py-1 me-2 text-sm text-slate-100 bg-red-400 rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    }
+  <div class="flex items-end justify-end mt-10">
+    <button type="submit"
+    class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded-md text-lg">
+        Tailwind Snippets
+    </button>
+  </div>
+</form>
