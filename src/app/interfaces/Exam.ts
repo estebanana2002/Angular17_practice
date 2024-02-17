@@ -5,7 +5,6 @@ export interface Answer {
 
 export interface Question {
   question: string;
-  points: number;
   answer: Answer[];
 }
 
@@ -14,7 +13,7 @@ export interface Exam {
   subject: string;
   title: string;
   teacher: string;
-  description: string;
+  description: string[];
   date: Date;
   duration: number
   questions: Question[];
