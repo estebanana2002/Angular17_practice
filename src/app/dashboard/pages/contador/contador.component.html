@@ -1,0 +1,16 @@
+
+
+<section class="">
+  <div class="grid grid-cols-6 gap-3">
+    <div class="md:col-span-3 col-span-12 ">
+      <div class="border-2 border-slate-700 rounded-md p-3">Contador normal: {{contadorNormal}}</div>
+      <app-card-button [contadorNormal]="contadorNormal"></app-card-button>
+    </div>
+    
+    <div class="md:col-span-3 col-span-12">
+      <div class="border-2 border-slate-700 rounded-md p-3">Contador con signal: {{counterSigma()}}</div>
+      <app-card-button-second [mySignal]="counterSigma"></app-card-button-second>
+    </div>
+  </div>
+</section>
+
