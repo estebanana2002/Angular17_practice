@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-task-list',
@@ -10,4 +10,11 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   templateUrl: './task-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TaskListComponent { }
+export class TaskListComponent {
+  @Input({required: true}) taskList!: any;
+
+
+  constructor( ) {
+
+  }
+}
